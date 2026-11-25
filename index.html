@@ -199,15 +199,27 @@ footer a{text-decoration:none}
 footer a:hover{color:#fff}
 
 /* flotante */
-.wa-float{position:fixed;right:20px;bottom:20px;z-index:60;width:60px;height:60px;border-radius:50%;background:#1fa855;color:#fff;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.floats{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.wa-float{width:60px;height:60px;border-radius:50%;background:#1fa855;color:#fff;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.25)}
 .wa-float svg{width:30px;height:30px}
+.urg-float{display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 20px 0 16px;border-radius:999px;background:#d92d20;color:#fff;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 12px 30px rgba(217,45,32,.4)}
+.urg-float svg{width:28px;height:28px;flex:0 0 28px}
+.urg-float:hover{background:#b42318}
+.urg-float .pulse{position:relative}
+.urg-float .pulse::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(255,255,255,.7);animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{from{transform:scale(.7);opacity:1}to{transform:scale(1.5);opacity:0}}
 
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 
 @media (max-width:1000px){
-  .floor{display:none}
+  .floor{top:18px;right:18px;transform:none;flex-direction:row;gap:10px;padding:10px 14px;border-radius:14px}
+  .floor .arrow{border-left-width:9px;border-right-width:9px}
+  .floor .up{border-bottom-width:12px}
+  .floor .down{border-top-width:12px}
+  .floor .num{font-size:1.7rem;min-width:36px}
+  .floor small{display:none}
   .stats .grid{grid-template-columns:repeat(2,1fr)}
   .stat:nth-child(2){border-right:0}
   .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
@@ -416,6 +428,7 @@ footer a:hover{color:#fff}
         <div><small>Urgencias y reclamos · 24 h</small><b>+54 9 11 4998-6546</b></div>
       </a>
       <ul class="clist">
+        <li><a href="https://wa.me/5491149986546?text=Hola%2C%20tengo%20una%20urgencia%20con%20el%20ascensor." target="_blank" rel="noopener"><span class="ic" style="background:#d92d20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9z"/></svg></span><span><b>Urgencias por WhatsApp</b><small>+54 9 11 4998-6546 · 24 h</small></span></a></li>
         <li><a href="https://wa.me/5491165794762?text=Hola%2C%20quiero%20que%20me%20contacten." target="_blank" rel="noopener"><span class="ic" style="background:#1fa855"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9z"/></svg></span><span><b>+54 9 11 6579-4762</b><small>Consultas · WhatsApp</small></span></a></li>
         <li><a href="mailto:info@ascensoresglennon.com.ar"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><span><b>info@ascensoresglennon.com.ar</b><small>Información general</small></span></a></li>
         <li><a href="mailto:ventas@ascensoresglennon.com.ar"><span class="ic" style="background:var(--green-d)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg></span><span><b>ventas@ascensoresglennon.com.ar</b><small>Nuevas obras</small></span></a></li>
@@ -461,7 +474,10 @@ footer a:hover{color:#fff}
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/5491165794762?text=Hola%2C%20quiero%20que%20me%20contacten." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9z"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg></a>
+<div class="floats">
+  <a class="wa-float" href="https://wa.me/5491165794762?text=Hola%2C%20quiero%20que%20me%20contacten." target="_blank" rel="noopener" aria-label="Consultas por WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9z"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg></a>
+  <a class="urg-float" href="https://wa.me/5491149986546?text=Hola%2C%20tengo%20una%20urgencia%20con%20el%20ascensor." target="_blank" rel="noopener" aria-label="Urgencias 24 horas por WhatsApp"><span class="pulse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9z"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg></span>Urgencias 24 h</a>
+</div>
 
 <script>
 const WHATSAPP = "5491165794762";
