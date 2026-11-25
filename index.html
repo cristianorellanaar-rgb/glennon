@@ -76,7 +76,12 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;heigh
 
 /* hero */
 .hero{position:relative;min-height:640px;display:flex;align-items:center;color:#fff;padding:120px 0 150px;overflow:hidden;background:#15181c}
-.hero-bg{position:absolute;inset:0;background:url(img/hero.webp) center/cover no-repeat;transform:scale(1.04)}
+.hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:0;transform:scale(1.06);transition:opacity 1.6s ease,transform 7s linear}
+.hero-bg.on{opacity:1;transform:scale(1)}
+.hero-bg.b1{background-image:url(img/hero.webp)}
+.hero-bg.b2{background-image:url(img/hall.webp)}
+.hero-bg.b3{background-image:url(img/botonera.webp)}
+.hero-bg.b4{background-image:url(img/tecnico.webp)}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,20,24,.92) 0%,rgba(18,20,24,.72) 48%,rgba(18,20,24,.25) 100%)}
 .hero .wrap{position:relative;z-index:2;width:100%}
 .hero h1{font-size:clamp(2.8rem,6.4vw,5rem);font-weight:800;text-transform:uppercase;max-width:760px}
@@ -269,7 +274,10 @@ footer a:hover{color:#fff}
 
 <main>
 <section class="hero" aria-label="Presentación">
-  <div class="hero-bg" role="img" aria-label="Hall de ascensores de acero inoxidable"></div>
+  <div class="hero-bg b1 on" role="img" aria-label="Hall de ascensores de acero inoxidable"></div>
+  <div class="hero-bg b2" aria-hidden="true"></div>
+  <div class="hero-bg b3" aria-hidden="true"></div>
+  <div class="hero-bg b4" aria-hidden="true"></div>
   <div class="wrap">
     <div class="eyebrow" style="color:#ffb27a">Ascensores Glennon S.R.L. · Zona Norte</div>
     <h1>Más de 50 años <span class="o">elevando</span> la seguridad</h1>
@@ -306,8 +314,8 @@ footer a:hover{color:#fff}
       <p class="lead" style="margin-top:18px">Ascensores Glennon S.R.L. es una empresa argentina dedicada a brindar soluciones integrales en instalación, mantenimiento, reparación y modernización de medios de elevación desde hace más de 50 años en Zona Norte.</p>
       <p>Con un sólido equipo de trabajo, seguimos evolucionando para brindar el mejor servicio: priorizamos la máxima seguridad de los pasajeros, ofrecemos una atención rápida y eficaz, y desarrollamos nuevas estrategias para mejorar la calidad de servicio de nuestros clientes.</p>
       <div class="people">
-        <div class="person"><div class="ini">RG</div><div><b>Sr. Raúl Ernesto Glennon</b><small>Dirección</small></div></div>
-        <div class="person"><div class="ini">IG</div><div><b>Ing. Ismael Glennon</b><small>Dirección técnica</small></div></div>
+        <div class="person"><div class="ini">RG</div><div><b>Sr. Raúl Ernesto Glennon</b></div></div>
+        <div class="person"><div class="ini">IG</div><div><b>Ing. Ismael Glennon</b></div></div>
       </div>
     </div>
     <div class="photo reveal">
@@ -463,10 +471,15 @@ burger.addEventListener("click", () => { const o = menu.classList.toggle("open")
 menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { menu.classList.remove("open"); burger.setAttribute("aria-expanded", false); }));
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-// indicador de piso
-const floors = ["PB","1","2","3","4","5","6","7","8"]; let fi = 0, dir = 1;
+// indicador de piso + fondo de portada que cambia con cada piso
+const floors = ["PB","1","2","3","4","5","6"]; let fi = 0, dir = 1;
 const fn = document.getElementById("floorNum");
-if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => { fi += dir; if (fi === floors.length - 1 || fi === 0) dir *= -1; fn.textContent = floors[fi]; }, 1400);
+const bgs = document.querySelectorAll(".hero-bg"); let bi = 0;
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => {
+  fi += dir; if (fi === floors.length - 1 || fi === 0) dir *= -1;
+  fn.textContent = floors[fi];
+  bgs[bi].classList.remove("on"); bi = (bi + 1) % bgs.length; bgs[bi].classList.add("on");
+}, 3500);
 // formulario
 function msg(){ const v = id => document.getElementById(id).value.trim();
   return `Hola, soy ${v("fName")}.${v("fPhone") ? " Tel: " + v("fPhone") + "." : ""}\nServicio: ${v("fSvc")}${v("fZone") ? " · " + v("fZone") : ""}\n${v("fMsg")}`; }
